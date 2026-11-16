@@ -45,7 +45,6 @@ dma_can\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 dma_can\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 dma_can\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 dma_can\main.o: ../Core/Inc/can.h
+dma_can\main.o: ../Core/Inc/dma.h
 dma_can\main.o: ../Core/Inc/usart.h
 dma_can\main.o: ../Core/Inc/gpio.h
-dma_can\main.o: ../Core/Application/can_comm.h
-dma_can\main.o: ../Core/Inc/dma.h

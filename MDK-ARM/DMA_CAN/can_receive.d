@@ -33,4 +33,5 @@ dma_can\can_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.
 dma_can\can_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 dma_can\can_receive.o: ../Core/Application/CAN_receive.h
 dma_can\can_receive.o: ../Core/Application/struct_typedef.h
+dma_can\can_receive.o: ../Core/Inc/can.h
 dma_can\can_receive.o: E:\keil\ARM\ARMCC\Bin\..\include\string.h

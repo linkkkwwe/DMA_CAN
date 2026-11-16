@@ -1,12 +1,13 @@
 #include "can_comm.h"
 #include "main.h"
 #include "CAN_receive.h"
+#include "can.h"
 #include <string.h>
 
 extern CAN_HandleTypeDef hcan1;
 
 /* 电机变量声明 */
- DMMotor_measure_t DMMotor_joint1,DMMotor_joint2,DMMotor_joint3,DMMotor_joint4,DMMotor_jiazhuan;
+DMMotor_measure_t DMMotor_joint1,DMMotor_joint2,DMMotor_joint3,DMMotor_joint4,DMMotor_jiazhuan;
 const DMMotor_Params_t* get_motor_params(uint8_t motor_id);
 
 //达妙电机数据获取
@@ -94,6 +95,42 @@ float uint_to_float(int x_int, float x_min, float x_max, int bits)
 	return ((float)x_int)*span/((float)((1<<bits)-1)) + offset;
 }
 
+/* 达妙电机反馈是“收到控制帧后的响应”，这里周期发零力矩 MIT 帧来请求反馈。
+ * 数据段：pos=32767, vel=2047, kp=0, kd=0, tor=2047，电机不出力。 */
+static void DM_Motor_SendMitFrame(uint16_t motor_id, const uint8_t data[8])
+{
+    CAN_TxHeaderTypeDef tx_header = {0};
+    uint32_t tx_mailbox;
+
+    if (HAL_CAN_GetTxMailboxesFreeLevel(&hcan1) == 0u) return;
+
+    tx_header.StdId = motor_id;
+    tx_header.IDE = CAN_ID_STD;
+    tx_header.RTR = CAN_RTR_DATA;
+    tx_header.DLC = 8u;
+
+    HAL_CAN_AddTxMessage(&hcan1, &tx_header, (uint8_t *)data, &tx_mailbox);
+}
+
+void DM_Motor_Request_Feedback(void)
+{
+    static const uint8_t zero_torque[8] = {0x7F, 0xFF, 0x7F, 0xF0, 0x00, 0x00, 0x07, 0xFF};
+    static const uint8_t enable[8]      = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFC};
+    static uint8_t enable_index = 0u;
+
+    /* 上电后前 4 次调用依次给电机 1~4 发使能帧 */
+    if (enable_index < 4u)
+    {
+        DM_Motor_SendMitFrame((uint16_t)(enable_index + 1u), enable);
+        enable_index++;
+    }
+
+    for (uint16_t id = 1u; id <= 4u; id++)
+    {
+        DM_Motor_SendMitFrame(id, zero_torque);
+    }
+}
+
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
     CAN_RxHeaderTypeDef rx_header;
     uint8_t rx_data[8];
@@ -106,8 +143,8 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
         frame.len = rx_header.DLC;
         memcpy(frame.data, rx_data, rx_header.DLC); 
         const DMMotor_Params_t* params;
-         switch (frame.std_id) {
-            case CAN_joint1_REC_ID:
+         switch (rx_data[0] & 0x0F) {
+            case CAN_joint1_MOTOR_ID:
                 get_DMMotor_measure(&DMMotor_joint1, frame.data);
                 params = get_motor_params(DM4310_ID);
                 if (params) {
@@ -116,7 +153,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
                     DMMotor_joint1.tor = uint_to_float(DMMotor_joint1.tor_int, params->T_MIN, params->T_MAX, 12);
                 }
                 break;
-            case CAN_joint2_REC_ID:
+            case CAN_joint2_MOTOR_ID:
                 get_DMMotor_measure(&DMMotor_joint2, frame.data);
                 params = get_motor_params(DM10010_ID);
                 if (params) {
@@ -125,7 +162,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
                     DMMotor_joint2.tor = uint_to_float(DMMotor_joint2.tor_int, params->T_MIN, params->T_MAX, 12);
                 }
                 break;
-            case CAN_joint3_REC_ID:
+            case CAN_joint3_MOTOR_ID:
                 get_DMMotor_measure(&DMMotor_joint3, frame.data);
                 params = get_motor_params(DM8009_ID);
                 if (params) {
@@ -135,7 +172,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
                 }
 							
                 break;
-            case CAN_joint4_REC_ID:
+            case CAN_joint4_MOTOR_ID:
                 get_DMMotor_measure(&DMMotor_joint4, frame.data);
                 params = get_motor_params(DM6220_ID);
                 if (params) {
@@ -144,7 +181,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
                     DMMotor_joint4.tor = uint_to_float(DMMotor_joint4.tor_int, params->T_MIN, params->T_MAX, 12);
                 }
 								break;
-            case CAN_jiazhuan_REC_ID:
+            case CAN_jiazhua_MOTOR_ID:
                 get_DMMotor_measure(&DMMotor_jiazhuan, frame.data);
                 params = get_motor_params(DMJIAZHUAN_ID);
                 if (params) {

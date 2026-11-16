@@ -70,4 +70,7 @@ const DMMotor_measure_t *get_DM_joint2_motor_measure_point(void);
 const DMMotor_measure_t *get_DM_joint3_motor_measure_point(void);
 const DMMotor_measure_t *get_DM_joint4_motor_measure_point(void);
 const DMMotor_measure_t *get_DM_jiazhuan_motor_measure_point(void);
+
+void DM_Motor_Request_Feedback(void);
+
 #endif /* CAN_RECEIVE_H */
