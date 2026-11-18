@@ -35,4 +35,4 @@ dma_can\can_receive.o: ../Core/Application/CAN_receive.h
 dma_can\can_receive.o: ../Core/Application/struct_typedef.h
 dma_can\can_receive.o: ../Core/Inc/can.h
 dma_can\can_receive.o: E:\keil\ARM\ARMCC\Bin\..\include\string.h
-dma_can\can_receive.o: E:\keil\ARM\ARMCC\Bin\..\include\math.h
+dma_can\can_receive.o: ../Core/Application/DM_motor.h

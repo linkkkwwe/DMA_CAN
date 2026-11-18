@@ -34,6 +34,7 @@ dma_can\controller_send_task.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ha
 dma_can\controller_send_task.o: ../Core/Application/Usart_Send.h
 dma_can\controller_send_task.o: ../Core/Application/CAN_receive.h
 dma_can\controller_send_task.o: ../Core/Application/struct_typedef.h
+dma_can\controller_send_task.o: ../Core/Application/DM_motor.h
 dma_can\controller_send_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 dma_can\controller_send_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 dma_can\controller_send_task.o: ../Core/Inc/FreeRTOSConfig.h

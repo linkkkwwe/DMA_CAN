@@ -31,9 +31,9 @@ void DM_Motor_Request_Feedback(void)
        J1/J4 回转轴：只给阻尼；J2/J3：τ_ff = −A·cos(pos − PHI0) 前馈。 */
     for (uint16_t id = 1u; id <= 4u; id++)
     {
-        const DMMotor_measure_t *m = (id == 1u) ? &m1 :
-                                     (id == 2u) ? &m2 :
-                                     (id == 3u) ? &m3 : &m4;
+        const DMMotor_measure_t *m = (id == 1u) ? m1 :
+                                     (id == 2u) ? m2 :
+                                     (id == 3u) ? m3 : m4;
         if (m->err != 1u)
         {
             DM_Motor_SendMitFrame(id, enable);

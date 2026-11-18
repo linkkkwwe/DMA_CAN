@@ -1,3 +1,6 @@
+#ifndef DM_MOTOR_H
+#define DM_MOTOR_H
+
 #include "main.h"
 #include "struct_typedef.h"
 #include "CAN_receive.h"
@@ -15,7 +18,8 @@
 #define GRAV_PHI0_2   0.0f    /* J2 连杆水平时的 pos（rad） */
 #define GRAV_A3       0.0f    /* J3 重力补偿系数（标定后填） */
 #define GRAV_PHI0_3   0.0f    /* J3 连杆水平时的 pos（rad） */
-int float_to_uint(float x, float x_min, float x_max, int bits);
-static void DM_Motor_SendMitFrame(uint16_t motor_id, const uint8_t data[8]);
+
 void DM_Motor_Request_Feedback(void);
 void DM_Motor_MitCtrl(uint16_t motor_id, float kp, float kd, float tor_ff);
+
+#endif /* DM_MOTOR_H */

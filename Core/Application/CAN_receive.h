@@ -1,5 +1,6 @@
 #ifndef CAN_RECEIVE_H
 #define CAN_RECEIVE_H
+#include "main.h"
 #include "struct_typedef.h"
 
 typedef struct {

@@ -1,6 +1,7 @@
 #include "Controller_Send_Task.h"
 #include "Usart_Send.h"
 #include "CAN_receive.h"
+#include "DM_motor.h"
 #include "cmsis_os.h"
 
 void Controller_Send_Task(void const *argument)
