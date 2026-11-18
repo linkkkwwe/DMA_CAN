@@ -1,7 +1,7 @@
 #ifndef CAN_RECEIVE_H
 #define CAN_RECEIVE_H
 #include "struct_typedef.h"
-#include "main.h"
+
 typedef struct {
     CAN_HandleTypeDef *hcan;    // CAN句柄（hcan1/hcan2）
     uint32_t std_id;            // 标准ID
@@ -65,12 +65,11 @@ typedef enum
 
 extern const DMMotor_Params_t dmmotor_params_table[];
 extern float uint_to_float(int x_int, float x_min, float x_max, int bits);
+const DMMotor_Params_t* get_motor_params(uint8_t motor_id);
 const DMMotor_measure_t *get_DM_joint1_motor_measure_point(void);
 const DMMotor_measure_t *get_DM_joint2_motor_measure_point(void);
 const DMMotor_measure_t *get_DM_joint3_motor_measure_point(void);
 const DMMotor_measure_t *get_DM_joint4_motor_measure_point(void);
 const DMMotor_measure_t *get_DM_jiazhuan_motor_measure_point(void);
-
-void DM_Motor_Request_Feedback(void);
 
 #endif /* CAN_RECEIVE_H */

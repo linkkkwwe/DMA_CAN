@@ -23,7 +23,7 @@
 #include "dma.h"
 #include "usart.h"
 #include "gpio.h"
-
+#include "can_comm.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 

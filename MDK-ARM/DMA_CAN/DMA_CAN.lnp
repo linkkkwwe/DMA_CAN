@@ -14,6 +14,7 @@
 "dma_can\controller_send_task.o"
 "dma_can\crc.o"
 "dma_can\usart_send.o"
+"dma_can\dm_motor.o"
 "dma_can\stm32f4xx_hal_can.o"
 "dma_can\stm32f4xx_hal_rcc.o"
 "dma_can\stm32f4xx_hal_rcc_ex.o"

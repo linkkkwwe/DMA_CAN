@@ -1,7 +1,7 @@
 Dependencies for Project 'DMA_CAN', Target 'DMA_CAN': (DO NOT MODIFY !)
 CompilerVersion: 5060528::V5.06 update 5 (build 528)::ARMCC
 F (startup_stm32f407xx.s)(0x6AFA81E2)(--cpu Cortex-M4.fp.sp -g --apcs=interwork -I ../Core/Inc -I ../Core/Application -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_DMA_CAN-IE:\keil\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\keil\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 543" --pd "STM32F407xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f407xx.lst --xref -o dma_can\startup_stm32f407xx.o --depend dma_can\startup_stm32f407xx.d)
-F (../Core/Src/main.c)(0x6AFA66D4)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Core/Application -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_DMA_CAN-IE:\keil\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\keil\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o dma_can\main.o --omf_browse dma_can\main.crf --depend dma_can\main.d)
+F (../Core/Src/main.c)(0x6AFAFD46)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Core/Application -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_DMA_CAN-IE:\keil\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\keil\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o dma_can\main.o --omf_browse dma_can\main.crf --depend dma_can\main.d)
 I (../Core/Inc/main.h)(0x6AF437E8)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x69CCDEE7)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6AF437E8)
@@ -50,6 +50,7 @@ I (../Core/Inc/can.h)(0x6AF437E7)
 I (../Core/Inc/dma.h)(0x6AF58F66)
 I (../Core/Inc/usart.h)(0x6AF437E7)
 I (../Core/Inc/gpio.h)(0x6AF437E6)
+I (../Core/Application/can_comm.h)(0x6AF46499)
 F (../Core/Src/gpio.c)(0x6AFA66CF)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Core/Application -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_DMA_CAN-IE:\keil\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\keil\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o dma_can\gpio.o --omf_browse dma_can\gpio.crf --depend dma_can\gpio.d)
 I (../Core/Inc/gpio.h)(0x6AF437E6)
 I (../Core/Inc/main.h)(0x6AF437E8)
@@ -297,7 +298,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x69CCDEE7
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x69CCDEE7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x69CCDEE7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x69CCDEE7)
-F (../Core/Application/CAN_receive.c)(0x6AFA6858)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Core/Application -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_DMA_CAN-IE:\keil\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\keil\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o dma_can\can_receive.o --omf_browse dma_can\can_receive.crf --depend dma_can\can_receive.d)
+F (../Core/Application/CAN_receive.c)(0x6AFD245C)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Core/Application -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_DMA_CAN-IE:\keil\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\keil\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o dma_can\can_receive.o --omf_browse dma_can\can_receive.crf --depend dma_can\can_receive.d)
 I (../Core/Application/can_comm.h)(0x6AF46499)
 I (../Core/Inc/main.h)(0x6AF437E8)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x69CCDEE7)
@@ -329,10 +330,11 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x69CCDEE7
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x69CCDEE7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x69CCDEE7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x69CCDEE7)
-I (../Core/Application/CAN_receive.h)(0x6AFA6843)
+I (../Core/Application/CAN_receive.h)(0x6AFC5E9D)
 I (../Core/Application/struct_typedef.h)(0x6AF6DF7B)
 I (../Core/Inc/can.h)(0x6AF437E7)
 I (E:\keil\ARM\ARMCC\include\string.h)(0x588B8344)
+I (E:\keil\ARM\ARMCC\include\math.h)(0x588B8344)
 F (../Core/Application/can_comm.c)(0x6AF6E1CA)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Core/Application -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_DMA_CAN-IE:\keil\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\keil\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o dma_can\can_comm.o --omf_browse dma_can\can_comm.crf --depend dma_can\can_comm.d)
 I (../Core/Application/can_comm.h)(0x6AF46499)
 I (../Core/Inc/main.h)(0x6AF437E8)
@@ -413,7 +415,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x69CCDE87)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x69CCDE87)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x69CCDE87)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x69CCDE87)
-F (../Core/Application/Controller_Send_Task.c)(0x6AFA685C)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Core/Application -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_DMA_CAN-IE:\keil\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\keil\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o dma_can\controller_send_task.o --omf_browse dma_can\controller_send_task.crf --depend dma_can\controller_send_task.d)
+F (../Core/Application/Controller_Send_Task.c)(0x6AFC5E9D)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Core/Application -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_DMA_CAN-IE:\keil\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\keil\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o dma_can\controller_send_task.o --omf_browse dma_can\controller_send_task.crf --depend dma_can\controller_send_task.d)
 I (../Core/Application/Controller_Send_Task.h)(0x6AF5C077)
 I (../Core/Inc/main.h)(0x6AF437E8)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x69CCDEE7)
@@ -446,7 +448,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x69CCDEE7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x69CCDEE7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x69CCDEE7)
 I (../Core/Application/Usart_Send.h)(0x6AF6DF7B)
-I (../Core/Application/CAN_receive.h)(0x6AFA6843)
+I (../Core/Application/CAN_receive.h)(0x6AFC5E9D)
 I (../Core/Application/struct_typedef.h)(0x6AF6DF7B)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h)(0x69CCDE87)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x69CCDE87)
@@ -500,7 +502,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x69CCDEE7
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x69CCDEE7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x69CCDEE7)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x69CCDEE7)
-I (../Core/Application/CAN_receive.h)(0x6AFA6843)
+I (../Core/Application/CAN_receive.h)(0x6AFC5E9D)
 I (../Core/Application/struct_typedef.h)(0x6AF6DF7B)
 I (../Core/Application/CRC.h)(0x6AF6DF7B)
 I (E:\keil\ARM\ARMCC\include\stdlib.h)(0x588B8344)
@@ -521,6 +523,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x69CCDE87)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x69CCDE87)
 I (../Core/Application/Key_Task.h)(0x6AF5C077)
 I (E:\keil\ARM\ARMCC\include\string.h)(0x588B8344)
+F (../Core/Application/DM_motor.c)(0x6AFD1E57)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Core/Application -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_DMA_CAN-IE:\keil\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\keil\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o dma_can\dm_motor.o --omf_browse dma_can\dm_motor.crf --depend dma_can\dm_motor.d)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c)(0x69CCDEE6)(--c99 -c --cpu Cortex-M4.fp.sp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Core/Application -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_DMA_CAN-IE:\keil\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IE:\keil\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o dma_can\stm32f4xx_hal_can.o --omf_browse dma_can\stm32f4xx_hal_can.crf --depend dma_can\stm32f4xx_hal_can.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x69CCDEE7)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6AF437E8)

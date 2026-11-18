@@ -3,7 +3,7 @@
 #include "CAN_receive.h"
 #include "can.h"
 #include <string.h>
-
+#include "DM_motor.h"
 extern CAN_HandleTypeDef hcan1;
 
 /* 电机变量声明 */
@@ -23,59 +23,62 @@ const DMMotor_Params_t* get_motor_params(uint8_t motor_id);
         (ptr)->T_Rotor = (float)((rx_message)[7]);                                           \
     }
 
-// -------------------------- 核心：电机参数表（修正语法格式，成员名完整） --------------------------
+// -------------------------- 核心：电机参数表 --------------------------
+// 四个关节槽位全部是 DM-H3510（额定0.18/峰值0.45Nm，减速比1:1，额定500rpm）。
+// 注意：P/V/T 三对量程必须与电机内寄存器 0x15(PMAX)/0x16(VMAX)/0x17(TMAX) 一字不差，
+//       用达妙调试助手写入 PMAX=12.5、VMAX=50、TMAX=0.45 后发存储参数保存。
 const DMMotor_Params_t dmmotor_params_table[] = {
-[DM4310_ID] = {    // 4310电机（关节1）
-				.P_MIN = -12.5f, 
-				.P_MAX = 12.5f,  
-				.V_MIN = -30.0f,
-				.V_MAX = 30.0f,
+[DM4310_ID] = {    // H3510（关节1，槽位名沿用旧宏，按 ID 索引勿删）
+				.P_MIN = -12.5f,
+				.P_MAX = 12.5f,
+				.V_MIN = -50.0f,
+				.V_MAX = 50.0f,
 				.KP_MIN = 0.0f,
 				.KP_MAX = 500.0f,
 				.KD_MIN = 0.0f,
 				.KD_MAX = 5.0f,
-				.T_MIN = -10.0f,
-				.T_MAX = 10.0f,
-		},
-    [DM6220_ID] = {    // 6220电机（关节4）- 扭矩范围更大
-    	  .P_MIN = -12.5f, 
-				.P_MAX = 12.5f,  
-				.V_MIN = -45.0f,
-				.V_MAX = 45.0f,
+				.T_MIN = -0.45f,
+				.T_MAX = 0.45f,
+	},
+    [DM6220_ID] = {    // H3510（关节4）
+				.P_MIN = -12.5f,
+				.P_MAX = 12.5f,
+				.V_MIN = -50.0f,
+				.V_MAX = 50.0f,
 				.KP_MIN = 0.0f,
 				.KP_MAX = 500.0f,
 				.KD_MIN = 0.0f,
 				.KD_MAX = 5.0f,
-				.T_MIN = -10.0f,
-				.T_MAX = 10.0f,
+				.T_MIN = -0.45f,
+				.T_MAX = 0.45f,
     },
-    [DM8009_ID] = {    // 8009电机（关节3）- 速度范围更大
-     	  .P_MIN = -12.5f, 
-				.P_MAX = 12.5f,  
-				.V_MIN = -45.0f,
-				.V_MAX = 45.0f,
+    [DM8009_ID] = {    // H3510（关节3）
+				.P_MIN = -12.5f,
+				.P_MAX = 12.5f,
+				.V_MIN = -50.0f,
+				.V_MAX = 50.0f,
 				.KP_MIN = 0.0f,
 				.KP_MAX = 500.0f,
 				.KD_MIN = 0.0f,
 				.KD_MAX = 5.0f,
-				.T_MIN = -30.0f,
-				.T_MAX = 30.0f,
+				.T_MIN = -0.45f,
+				.T_MAX = 0.45f,
     },
-    [DM10010_ID] = {   // 10010电机（关节2）- 综合参数
-  	    .P_MIN = -12.5f, 
-				.P_MAX = 12.5f,  
-				.V_MIN = -25.0f,
-				.V_MAX = 25.0f,
+    [DM10010_ID] = {   // H3510（关节2）
+				.P_MIN = -12.5f,
+				.P_MAX = 12.5f,
+				.V_MIN = -50.0f,
+				.V_MAX = 50.0f,
 				.KP_MIN = 0.0f,
 				.KP_MAX = 500.0f,
 				.KD_MIN = 0.0f,
 				.KD_MAX = 5.0f,
-				.T_MIN = -50.0f,//200
-				.T_MAX = 50.0f,//200
+				.T_MIN = -0.45f,
+				.T_MAX = 0.45f,
     },
-    [DMJIAZHUAN_ID] = { // 夹爪电机（4310）- 扭矩更小
-    	  .P_MIN = -12.5f, 
-				.P_MAX = 12.5f,  
+    [DMJIAZHUAN_ID] = { // 夹爪槽位（当前工程未接电机，保留原值不影响）
+     	  .P_MIN = -12.5f,
+				.P_MAX = 12.5f,
 				.V_MIN = -10.0f,
 				.V_MAX = 10.0f,
 				.KP_MIN = 0.0f,
@@ -93,42 +96,6 @@ float uint_to_float(int x_int, float x_min, float x_max, int bits)
 	float span = x_max - x_min;
 	float offset = x_min;
 	return ((float)x_int)*span/((float)((1<<bits)-1)) + offset;
-}
-
-/* 达妙电机反馈是“收到控制帧后的响应”，这里周期发零力矩 MIT 帧来请求反馈。
- * 数据段：pos=32767, vel=2047, kp=0, kd=0, tor=2047，电机不出力。 */
-static void DM_Motor_SendMitFrame(uint16_t motor_id, const uint8_t data[8])
-{
-    CAN_TxHeaderTypeDef tx_header = {0};
-    uint32_t tx_mailbox;
-
-    if (HAL_CAN_GetTxMailboxesFreeLevel(&hcan1) == 0u) return;
-
-    tx_header.StdId = motor_id;
-    tx_header.IDE = CAN_ID_STD;
-    tx_header.RTR = CAN_RTR_DATA;
-    tx_header.DLC = 8u;
-
-    HAL_CAN_AddTxMessage(&hcan1, &tx_header, (uint8_t *)data, &tx_mailbox);
-}
-
-void DM_Motor_Request_Feedback(void)
-{
-    static const uint8_t zero_torque[8] = {0x7F, 0xFF, 0x7F, 0xF0, 0x00, 0x00, 0x07, 0xFF};
-    static const uint8_t enable[8]      = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFC};
-    static uint8_t enable_index = 0u;
-
-    /* 上电后前 4 次调用依次给电机 1~4 发使能帧 */
-    if (enable_index < 4u)
-    {
-        DM_Motor_SendMitFrame((uint16_t)(enable_index + 1u), enable);
-        enable_index++;
-    }
-
-    for (uint16_t id = 1u; id <= 4u; id++)
-    {
-        DM_Motor_SendMitFrame(id, zero_torque);
-    }
 }
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {

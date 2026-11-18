@@ -520,6 +520,16 @@
               <FileType>1</FileType>
               <FilePath>../Core/Application/Usart_Send.c</FilePath>
             </File>
+            <File>
+              <FileName>DM_motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Core/Application/DM_motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>DM_motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>../Core/Application/DM_motor.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
