@@ -48,4 +48,3 @@ dma_can\main.o: ../Core/Inc/can.h
 dma_can\main.o: ../Core/Inc/dma.h
 dma_can\main.o: ../Core/Inc/usart.h
 dma_can\main.o: ../Core/Inc/gpio.h
-dma_can\main.o: ../Core/Application/can_comm.h

@@ -13,7 +13,7 @@ static const TickType_t debounce_time = pdMS_TO_TICKS(10); // 消抖时间10ms�
 void Key_task(void)
 {
   
-    GPIO_PinState pin_level = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6);//检测按键口的高低电平
+    GPIO_PinState pin_level = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12);//检测按键口的高低电平
     // 转换为逻辑状态：1=按下，0=未按
     uint16_t current_key = (pin_level == GPIO_PIN_RESET) ? 1 : 0;
 
